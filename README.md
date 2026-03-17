@@ -1,50 +1,52 @@
 # Student Information System (SIS)
 
-A modern, full-stack Student Information System with role-based access control for Students, Teachers, and Admins.
+A modern, full-stack Student Information System with role-based access control for Students, Teachers, and Admins. Built with React, Node.js, Express, and PostgreSQL.
 
-## Features
+## ✨ Features
 
-### 🔐 Authentication
+### 🔐 Authentication & Security
 - Secure JWT-based authentication
 - Role-based access control (Student, Teacher, Admin)
-- Password reset functionality
+- Password encryption with bcrypt
 - Session management
+- Rate limiting and security headers
 
-### 👨‍🎓 Student Features
-- Personalized dashboard with academic overview
-- Course registration and management
-- Attendance tracking
-- Grade viewing and GPA calculation
-- Assignment submission
-- Fee payment tracking
-- Timetable viewing
+### 👨‍🎓 Student Portal
+- **Personalized Dashboard** - Academic overview with key metrics
+- **Course Management** - Browse, register, and drop courses
+- **Attendance Tracking** - View attendance records and percentage
+- **Grade Viewing** - Check grades and GPA
+- **Assignment Submission** - Submit and track assignments
+- **Fee Management** - View and track fee payments
+- **Timetable** - Weekly class schedule
 
-### 👩‍🏫 Teacher Features
-- Class management dashboard
-- Attendance recording
-- Assignment creation and grading
-- Study material uploads
-- Student performance analytics
-- Communication with students
+### 👩‍🏫 Teacher Portal
+- **Teacher Dashboard** - Overview of courses and students
+- **Course Management** - Manage assigned courses
+- **Attendance System** - Mark and track student attendance
+- **Assignment Management** - Create and grade assignments
+- **Student Analytics** - View student performance metrics
+- **Material Upload** - Share study materials with students
 
-### 🏛️ Admin Features
-- Complete system management
-- User management (Students, Teachers)
-- Course and department management
-- Enrollment management
-- Fee structure configuration
-- System analytics and reporting
+### 🏛️ Admin Portal
+- **System Dashboard** - Complete system analytics
+- **Student Management** - CRUD operations for students
+- **Teacher Management** - CRUD operations for teachers
+- **Course Management** - Create and manage courses
+- **Department Management** - Organize departments
+- **Enrollment Management** - Handle course enrollments
+- **Analytics & Reports** - Visual charts and statistics
 
-## Tech Stack
+## 🚀 Tech Stack
 
-- **Frontend**: React 18 + Vite + TailwindCSS + ShadCN UI
+- **Frontend**: React 18 + Vite + TailwindCSS
 - **Backend**: Node.js + Express
 - **Database**: PostgreSQL
 - **Authentication**: JWT
-- **File Storage**: AWS S3 compatible
 - **Charts**: Recharts
+- **Icons**: Lucide React
 
-## Quick Start
+## 📦 Quick Start
 
 ### Prerequisites
 - Node.js 18+
@@ -53,86 +55,205 @@ A modern, full-stack Student Information System with role-based access control f
 
 ### Installation
 
-1. Clone the repository
-2. Install dependencies:
+1. **Clone the repository**
+```bash
+git clone https://github.com/Naveen-807/Student-information-system.git
+cd Student-information-system
+```
+
+2. **Install dependencies**
 ```bash
 npm run install-all
 ```
 
-3. Configure environment variables:
-   - Copy `.env.example` to `.env` in both `backend` and `frontend` directories
-   - Update database credentials and other settings
+3. **Configure environment variables**
 
-4. Set up the database:
+Backend (.env):
 ```bash
 cd backend
+cp .env.example .env
+# Edit .env with your database credentials
+```
+
+Frontend (.env):
+```bash
+cd frontend
+cp .env.example .env
+# Edit .env with your API URL
+```
+
+4. **Set up the database**
+```bash
+# Create PostgreSQL database
+createdb sis_db
+
+# Run migrations
+cd backend
 npm run migrate
+
+# Seed demo data
 npm run seed
 ```
 
-5. Start the development servers:
+5. **Start the development servers**
 ```bash
+# From root directory
 npm run dev
 ```
 
 The application will be available at:
-- Frontend: http://localhost:5173
-- Backend API: http://localhost:5000
+- **Frontend**: http://localhost:5173
+- **Backend API**: http://localhost:5001
 
-## Default Demo Accounts
+## 🔑 Default Demo Accounts
 
 After seeding the database, you can login with these accounts:
 
 **Admin Account:**
-- Email: admin@university.edu
-- Password: Admin@123
+- Email: `admin@university.edu`
+- Password: `Admin@123`
+- Access: Full system management
 
 **Teacher Account:**
-- Email: teacher@university.edu
-- Password: Teacher@123
+- Email: `teacher@university.edu`
+- Password: `Teacher@123`
+- Access: Course and student management
 
 **Student Account:**
-- Email: student@university.edu
-- Password: Student@123
+- Email: `student@university.edu`
+- Password: `Student@123`
+- Access: Student portal features
 
-## Project Structure
+## 📁 Project Structure
 
 ```
+student-information-system/
 ├── backend/              # Express API server
 │   ├── src/
-│   │   ├── config/      # Configuration files
+│   │   ├── config/      # Database & configuration
 │   │   ├── controllers/ # Route controllers
-│   │   ├── middleware/  # Custom middleware
+│   │   ├── middleware/  # Auth & validation
 │   │   ├── models/      # Database models
 │   │   ├── routes/      # API routes
-│   │   ├── services/    # Business logic
-│   │   └── utils/       # Utility functions
-│   └── migrations/      # Database migrations
+│   │   └── server.js    # Entry point
+│   └── package.json
 ├── frontend/            # React application
 │   ├── src/
 │   │   ├── components/  # Reusable components
+│   │   ├── contexts/    # React contexts
 │   │   ├── pages/       # Page components
-│   │   ├── hooks/       # Custom hooks
-│   │   ├── lib/         # Utilities
-│   │   └── services/    # API services
-└── docs/               # Documentation
+│   │   ├── services/    # API services
+│   │   └── main.jsx     # Entry point
+│   └── package.json
+├── README.md
+├── DEPLOYMENT.md        # Deployment guide
+├── VERCEL_DEPLOYMENT.md # Vercel-specific guide
+└── API_DOCUMENTATION.md # API reference
 
 ```
 
-## API Documentation
+## 🌐 Deployment
 
-API documentation is available at `/api/docs` when running the backend server.
+### Deploy to Vercel
 
-## Security Features
+See [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md) for detailed instructions.
 
-- Password hashing with bcrypt
+Quick steps:
+1. Push code to GitHub
+2. Import repository in Vercel
+3. Set up cloud database (Neon, Supabase, Railway)
+4. Configure environment variables
+5. Deploy!
+
+### Other Platforms
+
+See [DEPLOYMENT.md](DEPLOYMENT.md) for deployment guides for:
+- Traditional VPS/EC2
+- Docker
+- Heroku
+- Railway
+
+## 📚 Documentation
+
+- **API Documentation**: [API_DOCUMENTATION.md](API_DOCUMENTATION.md)
+- **Deployment Guide**: [DEPLOYMENT.md](DEPLOYMENT.md)
+- **Vercel Deployment**: [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md)
+
+## 🔒 Security Features
+
+- Password hashing with bcrypt (10 rounds)
 - JWT token authentication
 - Role-based access control
-- Rate limiting
+- Rate limiting (100 requests per 15 minutes)
 - SQL injection prevention
-- XSS protection
+- XSS protection with Helmet.js
 - CORS configuration
+- Environment variable protection
 
-## License
+## 🎨 UI/UX Features
 
-MIT
+- Modern, clean interface
+- Responsive design (mobile, tablet, desktop)
+- Smooth animations and transitions
+- Loading states and error handling
+- Empty states with helpful messages
+- Gradient backgrounds and cards
+- Icon-based navigation
+- Quick action buttons
+
+## 🧪 Testing
+
+```bash
+# Run backend tests
+cd backend
+npm test
+
+# Run frontend tests
+cd frontend
+npm test
+```
+
+## 📊 Database Schema
+
+The system uses PostgreSQL with the following main tables:
+- `users` - Authentication and user roles
+- `students` - Student profiles
+- `teachers` - Teacher profiles
+- `courses` - Course information
+- `enrollments` - Student-course relationships
+- `attendance` - Attendance records
+- `assignments` - Assignment details
+- `submissions` - Student submissions
+- `grades` - Grade records
+- `fees` - Fee management
+- `notifications` - System notifications
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License.
+
+## 👨‍💻 Author
+
+**Naveen**
+- GitHub: [@Naveen-807](https://github.com/Naveen-807)
+
+## 🙏 Acknowledgments
+
+- Built with modern web technologies
+- Inspired by university management systems
+- Designed for educational purposes
+
+## 📞 Support
+
+For issues and questions:
+- Open an issue on GitHub
+- Check the documentation
+- Review the API documentation
+
+---
+
+Made with ❤️ for educational purposes
