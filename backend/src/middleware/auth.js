@@ -9,7 +9,7 @@ const auth = async (req, res, next) => {
       return res.status(401).json({ error: 'Authentication required' });
     }
     
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret_for_mock');
     const result = await pool.query(
       'SELECT id, email, role, is_active FROM users WHERE id = $1',
       [decoded.userId]

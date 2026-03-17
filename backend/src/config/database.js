@@ -1,32 +1,52 @@
-const { Pool } = require('pg');
-
-// Support both individual connection params and connection string
-const poolConfig = process.env.DATABASE_URL ? {
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
-} : {
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  database: process.env.DB_NAME,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  max: 20,
-  idleTimeoutMillis: 30000,
-  connectionTimeoutMillis: 2000,
-};
-
-const pool = new Pool(poolConfig);
-
-pool.on('connect', () => {
-  console.log('✅ Database connected');
-});
-
-pool.on('error', (err) => {
-  console.error('❌ Database error:', err);
-  // Don't exit in production, just log the error
-  if (process.env.NODE_ENV !== 'production') {
-    process.exit(-1);
+// Mock Database for Vercel Demo
+class MockPool {
+  on(event, callback) {
+    if (event === 'connect') {
+      setTimeout(callback, 0);
+    }
   }
-});
+
+  async query(text, params) {
+    const q = text.toLowerCase();
+    
+    // Auth / User identification
+    if (q.includes('from users')) {
+      const emailParam = (params && params.length > 0 && typeof params[0] === 'string') ? params[0] : '';
+      let role = 'student';
+      if (emailParam.includes('admin') || q.includes('admin')) role = 'admin';
+      else if (emailParam.includes('teacher') || q.includes('teacher')) role = 'teacher';
+      
+      return {
+        rows: [{
+          id: 1,
+          email: emailParam || 'admin@university.edu',
+          password: 'mock_password_bypassed',
+          role: role,
+          is_active: true
+        }]
+      };
+    }
+    
+    // Dashboards
+    if (q.includes('count(*)')) {
+      return { rows: [{ count: "12" }] };
+    }
+    
+    // Profiles
+    if (q.includes('select s.*') || q.includes('select t.*')) {
+      return { rows: [{ id: 1, user_id: 1, first_name: 'Demo', last_name: 'User', department_name: 'Computer Science' }] };
+    }
+
+    // Default fallback mock response
+    if (q.includes('returning')) {
+      return { rows: [{ id: Math.floor(Math.random() * 1000) }] };
+    }
+    
+    return { rows: [] };
+  }
+}
+
+const pool = new MockPool();
+console.log('✅ Mock Database connected (No DB required)');
 
 module.exports = pool;
