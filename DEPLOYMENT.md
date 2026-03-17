@@ -65,8 +65,12 @@ cp .env.example .env
 
 Edit `frontend/.env`:
 ```env
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=/api
 ```
+
+Notes:
+- For local development, `/api` uses the Vite proxy to reach the backend.
+- Only set an absolute `VITE_API_URL` when intentionally targeting a different remote backend.
 
 ### 4. Database Migration and Seeding
 

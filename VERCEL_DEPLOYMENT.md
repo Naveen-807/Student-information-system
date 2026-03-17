@@ -35,22 +35,17 @@
 1. Go to https://vercel.com/new
 2. Import your GitHub repository: `https://github.com/Naveen-807/Student-information-system`
 3. Configure the project:
-   - **Framework Preset**: Vite
-   - **Root Directory**: `frontend`
-   - **Build Command**: `npm run build`
-   - **Output Directory**: `dist`
+   - **Framework Preset**: Other
+   - **Root Directory**: project root (leave default)
+   - Build and output are controlled by `vercel.json`
 
 4. Add Environment Variables:
 
 Click on "Environment Variables" and add:
 
 ```
-# Database Configuration
-DB_HOST=your-database-host
-DB_PORT=5432
-DB_NAME=your-database-name
-DB_USER=your-database-user
-DB_PASSWORD=your-database-password
+# Database Configuration (recommended)
+DATABASE_URL=postgresql://user:password@host:5432/database
 
 # JWT Configuration
 JWT_SECRET=your-super-secret-jwt-key-min-32-characters-long
@@ -58,13 +53,12 @@ JWT_EXPIRE=7d
 
 # API Configuration
 NODE_ENV=production
-PORT=5000
 
 # Frontend URL (will be your Vercel URL)
 FRONTEND_URL=https://your-app.vercel.app
 
-# Vite API URL (for frontend)
-VITE_API_URL=https://your-app.vercel.app/api
+# Optional: keep empty to use same-origin /api from frontend
+# VITE_API_URL=/api
 ```
 
 5. Click "Deploy"
@@ -110,13 +104,13 @@ npm run seed
 2. Run the SQL from `backend/src/config/migrate.js` manually
 3. Run the seed script or create users manually
 
-## Step 4: Update Frontend Environment
+## Step 4: Routing Verification
 
-After deployment, update your frontend environment variable:
+This project uses:
+- `api/[...all].js` for backend serverless routing
+- `vercel.json` rewrites to send `/api/*` to backend and all other paths to SPA `index.html`
 
-1. Go to Vercel Dashboard > Your Project > Settings > Environment Variables
-2. Update `VITE_API_URL` to your deployed backend URL
-3. Redeploy the frontend
+No additional frontend URL rewrite is needed when using `/api`.
 
 ## Step 5: Test Your Deployment
 
