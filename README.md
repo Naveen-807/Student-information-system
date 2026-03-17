@@ -2,6 +2,11 @@
 
 A modern, full-stack Student Information System with role-based access control for Students, Teachers, and Admins. Built with React, Node.js, Express, and PostgreSQL.
 
+## Live Deployment
+
+- App: https://student-information-system-lac.vercel.app
+- API Health: https://student-information-system-lac.vercel.app/api/health
+
 ## ✨ Features
 
 ### 🔐 Authentication & Security
@@ -103,7 +108,7 @@ npm run dev
 
 The application will be available at:
 - **Frontend**: http://localhost:5173
-- **Backend API**: http://localhost:5001
+- **Backend API**: http://localhost:5000
 
 ## 🔑 Default Demo Accounts
 
